@@ -1,0 +1,34 @@
+﻿@model TaskViewModel
+
+<div class="row" >
+    <form method="post" asp-action="@(Model.ID>0? "edit":"add")" class="col-5">
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="Title">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="Description">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div> 
+        <div class="mb-3">
+            <label asp-for="dueDate" class="form-label"></label>
+            <input type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-dd^HH:mm")" class="form-control" asp-for="dueDate">
+            <span asp-validation-for="dueDate" class="text-danger"></span>
+        </div>
+       
+        <div class="mb-3 @(Model.ID>0? "d-block":"d-none") "  >
+            <label asp-for="status" class="form-label"></label>
+            <select class="form-control" asp-for="status" asp-items="@Model.consts.Select(c=>new SelectListItem{Text=c.ToString(),Value=c.ToString()})">
+                <option></option>
+            </select>
+            <span asp-validation-for="status" class="text-danger"></span>
+        </div>
+        
+        <button type="submit" class="btn btn-primary"> Save </button>
+		
+    </form>
+
+</div>

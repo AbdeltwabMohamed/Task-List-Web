@@ -1,0 +1,15 @@
+﻿@model IEnumerable<DoList>
+
+@foreach(var task in Model)
+{
+    <div class="card" style="width: 18rem; ">
+        <div class="card-body" style="padding:10px;">
+            <h5 class="card-title">@task.Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@task.dueDate</h6>
+            <p class="card-text">@task.Description.</p>
+            <a asp-route-id="@task.ID" asp-action="edit"  class="btn btn-primary mr-2">Edit</a>
+            <a asp-action="delete" asp-route-id="@task.ID" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+	
+}
