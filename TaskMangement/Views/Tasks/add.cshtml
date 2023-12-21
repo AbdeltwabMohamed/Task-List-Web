@@ -15,7 +15,7 @@
         </div> 
         <div class="mb-3">
             <label asp-for="dueDate" class="form-label"></label>
-            <input type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-dd^HH:mm")" class="form-control" asp-for="dueDate">
+            <input type="datetime-local" value="@DateTime.Now" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" asp-for="dueDate">
             <span asp-validation-for="dueDate" class="text-danger"></span>
         </div>
        

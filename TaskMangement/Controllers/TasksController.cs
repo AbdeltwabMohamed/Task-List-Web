@@ -21,8 +21,8 @@ namespace TaskMangement.Controllers
         }
         public async Task<IActionResult> Add()
         {
-            
-            return View();
+            var model = new TaskViewModel();
+            return View(model);
 
 
 
@@ -86,20 +86,20 @@ namespace TaskMangement.Controllers
             var task = _context.doLists.Find(model.ID);
 
             if (!ModelState.IsValid)
-                return View(model);
+                return View("add",model);
 
 
             if (model.dueDate <= DateTime.Now)
             {
                 ModelState.Clear();
                 ModelState.AddModelError("dueDate", "Invalid Task Time Make it bigger from now");
-                return View(model);
+                return View("add", model);
             }
             if (model.Title == string.Empty)
             {
                 ModelState.Clear();
                 ModelState.AddModelError("Title", "Title Required");
-                return View(model);
+                return View("add", model);
             }
             task.Title = model.Title;
             task.Description=model.Description;

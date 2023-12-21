@@ -79,3 +79,4 @@ D:\asp.net\TaskMangement\TaskMangement\obj\Debug\net7.0\refint\TaskMangement.dll
 D:\asp.net\TaskMangement\TaskMangement\obj\Debug\net7.0\TaskMangement.pdb
 D:\asp.net\TaskMangement\TaskMangement\obj\Debug\net7.0\TaskMangement.genruntimeconfig.cache
 D:\asp.net\TaskMangement\TaskMangement\obj\Debug\net7.0\ref\TaskMangement.dll
+D:\asp.net\TaskMangement\TaskMangement\bin\Debug\net7.0\libman.json

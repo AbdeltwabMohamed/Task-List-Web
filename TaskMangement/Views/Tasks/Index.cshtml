@@ -1,15 +1,34 @@
 ﻿@model IEnumerable<DoList>
+<a type="button" as class="btn btn-primary mb-3" asp-action="add" >
+    <i class="bi bi-file-earmark-plus"></i>
 
-@foreach(var task in Model)
+    Add Task
+    </a>
+<div class="row">
+    @foreach(var task in Model)
 {
-    <div class="card" style="width: 18rem; ">
-        <div class="card-body" style="padding:10px;">
+        <div class="col-md-4">
+    <div class="card ml-5 mb-3 p-3 " style="width: 100%; ">
+        <div class="card-body " style="padding:10px;">
             <h5 class="card-title">@task.Title</h5>
             <h6 class="card-subtitle mb-2 text-muted">@task.dueDate</h6>
             <p class="card-text">@task.Description.</p>
-            <a asp-route-id="@task.ID" asp-action="edit"  class="btn btn-primary mr-2">Edit</a>
-            <a asp-action="delete" asp-route-id="@task.ID" class="btn btn-danger">Delete</a>
-        </div>
+                    <p class="text-danger ">@(task.dueDate < DateTime.Now ? $"This task end in {task.status} status" : $"This Task is {task.status}")</p>
+                    <div class="">
+                        <a asp-route-id="@task.ID" asp-action="edit" class="btn btn-primary mr-2  @(task.dueDate<DateTime.Now ? "disabled" : "")">
+                    Edit
+                    </a>
+                <a asp-action="delete" asp-route-id="@task.ID" class="btn btn-danger ">Delete</a>
+                        @if (task.dueDate < DateTime.Now)
+                        {
+                            <p class="text-danger mt-3 fs-3">
+                                <i class="bi bi-exclamation-diamond-fill"></i>
+                                Task Expired
+                            </p>
+                        }
+            </div>
+                </div>
     </div>
-	
+        </div>
 }
+</div>
