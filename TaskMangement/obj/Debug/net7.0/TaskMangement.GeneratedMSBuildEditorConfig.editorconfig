@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\asp.net\TaskMangement\TaskMangement
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/asp.net/TaskMangement/TaskMangement/Views/auth/login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcYXV0aFxsb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/asp.net/TaskMangement/TaskMangement/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -34,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/asp.net/TaskMangement/TaskMangement/Views/Tasks/add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza3NcYWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/asp.net/TaskMangement/TaskMangement/Views/Tasks/details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza3NcZGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/asp.net/TaskMangement/TaskMangement/Views/Tasks/Index.cshtml]

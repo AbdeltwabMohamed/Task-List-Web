@@ -8,27 +8,33 @@
     @foreach(var task in Model)
 {
         <div class="col-md-4">
-    <div class="card ml-5 mb-3 p-3 " style="width: 100%; ">
-        <div class="card-body " style="padding:10px;">
-            <h5 class="card-title">@task.Title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@task.dueDate</h6>
-            <p class="card-text">@task.Description.</p>
+           <a asp-action="details" asp-route-id="@task.ID" style="text-decoration:none; color:black;">
+            <div class="card ml-5 mb-3 p-3 " style="width: 100%; cursor:pointer; ">
+                <div class="card-body " style="padding:10px ; ">
+                    <h5 class="card-title">@task.Title</h5>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted">@task.dueDate</h6>
+                    
+                    <p class="card-text" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@task.Description.</p>
                     <p class="text-danger ">@(task.dueDate < DateTime.Now ? $"This task end in {task.status} status" : $"This Task is {task.status}")</p>
                     <div class="">
                         <a asp-route-id="@task.ID" asp-action="edit" class="btn btn-primary mr-2  @(task.dueDate<DateTime.Now ? "disabled" : "")">
                     Edit
                     </a>
-                <a asp-action="delete" asp-route-id="@task.ID" class="btn btn-danger ">Delete</a>
-                        @if (task.dueDate < DateTime.Now)
-                        {
-                            <p class="text-danger mt-3 fs-3">
-                                <i class="bi bi-exclamation-diamond-fill"></i>
-                                Task Expired
-                            </p>
-                        }
+                        <a asp-action="delete" asp-route-id="@task.ID" class="btn btn-danger ">Delete</a>
+                            @if (task.dueDate < DateTime.Now)
+                            {
+                                <p class="text-danger mt-3 fs-3">
+                                    <i class="bi bi-exclamation-diamond-fill"></i>
+                                    Task Expired
+                                </p>
+                            }
             </div>
+          
                 </div>
+          
     </div>
+            </a>
         </div>
 }
 </div>

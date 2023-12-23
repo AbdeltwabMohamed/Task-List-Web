@@ -10,12 +10,14 @@
         </div>
         <div class="mb-3">
             <label asp-for="Description" class="form-label"></label>
-            <input type="text" class="form-control" asp-for="Description">
+            <textarea type="text" class="form-control" asp-for="Description"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div> 
         <div class="mb-3">
-            <label asp-for="dueDate" class="form-label"></label>
-            <input type="datetime-local" value="@DateTime.Now" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" asp-for="dueDate">
+            <label asp-for="dueDate" class="form-label"
+           
+            ></label>
+            <input type="datetime-local" value='@(Model.ID > 0 ? Model.dueDate.ToString("yyyy-MM-ddTHH:mm") : "")' min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" asp-for="dueDate">
             <span asp-validation-for="dueDate" class="text-danger"></span>
         </div>
        

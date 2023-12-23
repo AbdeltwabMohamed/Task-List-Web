@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TaskMangement.Data;
 
@@ -5,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
 
+    .AddDefaultUI().AddDefaultTokenProviders();
 builder.Services.AddDbContext<ApplicationDbContext>
     (option => option
     .UseSqlServer(builder.Configuration.GetConnectionString("defa")));
@@ -30,5 +33,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();
