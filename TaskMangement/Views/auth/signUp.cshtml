@@ -1,0 +1,23 @@
+﻿@model SignUpViewModel
+<div class="row">
+	<div asp-validation-summary="All"></div>
+	<form method="post" asp-action="signUp">
+		<div class="col-md-4">
+			<label asp-for="Email" class="form-label" ></label>
+			<input class="form-control mb-3" asp-for="Email" />
+			<span asp-validation-for="Email" class="text-danger" ></span>
+		</div>
+		<div class="col-md-4">
+			<label asp-for="Password" class="form-label" ></label>
+			<input class="form-control mb-3" asp-for="Password" />
+			<span asp-validation-for="Password" class="text-danger"></span>
+		</div>
+		<div class="col-md-4">
+			<label asp-for="ConfirmedPassword" class="form-label" ></label>
+			<input class="form-control mb-3" asp-for="ConfirmedPassword" />
+			<span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+		</div>
+
+		<button class="btn btn-primary	">Register</button>
+	</form>
+</div>

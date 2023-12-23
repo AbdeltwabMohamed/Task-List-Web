@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="~/TaskMangement.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var userName = User.Identity.IsAuthenticated ? User.Identity.Name : "Guest";
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -32,6 +35,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a>
                         </li>
                         <li class="navbar-text flex-grow-1"></li>
+                        <span class="navbar-text">
+                            Welcome, @userName
+                        </span>
                         <li class="nav-item  " style="justify-content:end">
                             <a class="nav-link text-dark" asp-area="" asp-controller="auth" asp-action="Login">login</a>
                         </li>

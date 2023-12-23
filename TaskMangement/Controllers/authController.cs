@@ -46,6 +46,44 @@ namespace TaskMangement.Controllers
                 return View(model);
             
         }
+
+        public IActionResult signUp()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> signUp(SignUpViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser
+                {
+                    Email = model.Email,
+                    UserName = model.Email
+                };
+              var result= await _userManager.CreateAsync(user,model.Password);
+                
+                if (!result.Succeeded)
+                    
+                {
+                    foreach(var error in result.Errors)
+                    {
+
+
+                    ModelState.AddModelError("", error.Description);
+                        
+                    }
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(model);
+        }
         
     }
 }
