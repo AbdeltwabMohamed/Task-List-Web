@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TaskMangement.Data;
+using TaskMangement.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+builder.Services.AddIdentity<SystemUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
 
     .AddDefaultUI().AddDefaultTokenProviders();
 builder.Services.AddDbContext<ApplicationDbContext>

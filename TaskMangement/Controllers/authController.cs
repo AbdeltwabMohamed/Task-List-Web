@@ -1,16 +1,17 @@
 ﻿using Azure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TaskMangement.Models;
 using TaskMangement.ViewModels;
 
 namespace TaskMangement.Controllers
 {
     public class authController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<SystemUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<IdentityUser> _signIn;
-        public authController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signIn)
+        private readonly SignInManager<SystemUser> _signIn;
+        public authController(RoleManager<IdentityRole> roleManager, UserManager<SystemUser> userManager, SignInManager<SystemUser> signIn)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -57,7 +58,7 @@ namespace TaskMangement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new SystemUser
                 {
                     Email = model.Email,
                     UserName = model.Email
@@ -84,6 +85,10 @@ namespace TaskMangement.Controllers
 
             return View(model);
         }
-        
+        public async Task<IActionResult> SignOut()
+        {
+            await _signIn.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

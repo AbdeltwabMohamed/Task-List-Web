@@ -5,8 +5,18 @@
     Add Task
     </a>
 <div class="row">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h1 class="text-danger"> You have to Sign In first</h1>
+    }
+    else if (Model.ToList().Count==0)
+    {
+        <h1 class="text-danger" >No Tasks Yet</h1>
+        
+    }
     @foreach(var task in Model)
 {
+    
         <div class="col-md-4">
            <a asp-action="details" asp-route-id="@task.ID" style="text-decoration:none; color:black;">
             <div class="card ml-5 mb-3 p-3 " style="width: 100%; cursor:pointer; ">

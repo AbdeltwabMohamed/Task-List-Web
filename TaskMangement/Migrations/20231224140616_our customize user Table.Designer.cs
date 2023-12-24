@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskMangement.Data;
 
@@ -11,9 +12,11 @@ using TaskMangement.Data;
 namespace TaskMangement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224140616_our customize user Table")]
+    partial class ourcustomizeuserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,6 +170,9 @@ namespace TaskMangement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SystemUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -177,14 +183,11 @@ namespace TaskMangement.Migrations
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("systemUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("systemUserId");
+                    b.HasIndex("SystemUserId");
 
-                    b.ToTable("doLists", (string)null);
+                    b.ToTable("doLists");
                 });
 
             modelBuilder.Entity("TaskMangement.Models.SystemUser", b =>
@@ -305,11 +308,9 @@ namespace TaskMangement.Migrations
 
             modelBuilder.Entity("TaskMangement.Models.DoList", b =>
                 {
-                    b.HasOne("TaskMangement.Models.SystemUser", "systemUser")
+                    b.HasOne("TaskMangement.Models.SystemUser", null)
                         .WithMany("DoList")
-                        .HasForeignKey("systemUserId");
-
-                    b.Navigation("systemUser");
+                        .HasForeignKey("SystemUserId");
                 });
 
             modelBuilder.Entity("TaskMangement.Models.SystemUser", b =>

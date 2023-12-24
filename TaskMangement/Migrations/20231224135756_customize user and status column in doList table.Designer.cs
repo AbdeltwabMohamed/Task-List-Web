@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskMangement.Data;
 
@@ -11,9 +12,11 @@ using TaskMangement.Data;
 namespace TaskMangement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231224135756_customize user and status column in doList table")]
+    partial class customizeuserandstatuscolumnindoListtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,14 +180,9 @@ namespace TaskMangement.Migrations
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("systemUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("systemUserId");
-
-                    b.ToTable("doLists", (string)null);
+                    b.ToTable("doLists");
                 });
 
             modelBuilder.Entity("TaskMangement.Models.SystemUser", b =>
@@ -301,20 +299,6 @@ namespace TaskMangement.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TaskMangement.Models.DoList", b =>
-                {
-                    b.HasOne("TaskMangement.Models.SystemUser", "systemUser")
-                        .WithMany("DoList")
-                        .HasForeignKey("systemUserId");
-
-                    b.Navigation("systemUser");
-                });
-
-            modelBuilder.Entity("TaskMangement.Models.SystemUser", b =>
-                {
-                    b.Navigation("DoList");
                 });
 #pragma warning restore 612, 618
         }

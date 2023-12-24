@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TaskMangement.Constants;
 using TaskMangement.Data;
 using TaskMangement.Models;
@@ -9,20 +11,39 @@ namespace TaskMangement.Controllers
     public class TasksController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public TasksController(ApplicationDbContext context)
+        private readonly UserManager<SystemUser> _userManager;
+        
+        public TasksController(ApplicationDbContext context, UserManager<SystemUser> userManager)
         {
+
             _context = context;
-            
+            _userManager= userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var Tasks = _context.doLists.ToList();
+            var currentUser =await _userManager.GetUserAsync(User);
+
+            if (currentUser != null)
+            {
+            var Tasks = _context.doLists.Include(r=>r.systemUser).Where(d=>d.systemUser.Id==currentUser.Id).ToList();
+
             return View(Tasks);
+            }
+            return View(new List<DoList>());
+            
         }
         public async Task<IActionResult> Add()
         {
-            var model = new TaskViewModel();
-            return View(model);
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var model = new TaskViewModel() { UserId = user.Id };
+                return View(model);
+            }
+            else
+            {
+                return View(new TaskViewModel());
+            }
 
 
 
@@ -31,6 +52,7 @@ namespace TaskMangement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(TaskViewModel model)
         {
+            var user =await _userManager.GetUserAsync(User);
             
             if (!ModelState.IsValid)
                 return View(model);
@@ -48,12 +70,21 @@ namespace TaskMangement.Controllers
                 ModelState.AddModelError("Title", "Title Required");
                 return View(model);
             }
+            
+           
+            if (model.UserId ==null)
+            {
+                ModelState.AddModelError("UserId", "You have to sign in to add tasks");
+                return View(model);
+            }
             var result = new DoList
             {
-                Title=model.Title,
-                Description=model.Description,
-                dueDate=model.dueDate,
-                status=$"{StatusConsts.notStarted}"
+                Title = model.Title,
+                Description = model.Description,
+                dueDate = model.dueDate,
+                status = $"{StatusConsts.notStarted}",
+                systemUser = user,
+                
 
             };
             _context.Add(result);
@@ -66,6 +97,8 @@ namespace TaskMangement.Controllers
         public async Task<IActionResult> edit(int id)
         {
             var Task = _context.doLists.Find(id);
+            if (Task == null)
+                return NotFound();
             var result = new TaskViewModel
             {
                 ID = Task.ID,
@@ -74,8 +107,6 @@ namespace TaskMangement.Controllers
                 status = Task.status,
                 dueDate = Task.dueDate
             };
-            if (Task == null)
-                return NotFound();
             return View("Add", result);
 
         }
@@ -112,6 +143,15 @@ namespace TaskMangement.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
 
+
+        }
+        public async Task<IActionResult> details(int id)
+        {
+            var task =await _context.doLists.FindAsync(id);
+            if (task == null)
+                return NotFound();
+
+            return View(task);
 
         }
         public async Task<IActionResult> Delete(int id)

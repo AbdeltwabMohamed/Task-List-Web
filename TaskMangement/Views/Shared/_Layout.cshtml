@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -38,6 +38,12 @@
                         <span class="navbar-text">
                             Welcome, @userName
                         </span>
+                        @if (!userName.Equals("Guest"))
+                        {
+                            <li class="nav-item  " style="justify-content:end">
+                                <a class="nav-link text-danger" asp-area="" asp-controller="auth" asp-action="SignOut">SignOut</a>
+                            </li>
+                        }
                         <li class="nav-item  " style="justify-content:end">
                             <a class="nav-link text-dark" asp-area="" asp-controller="auth" asp-action="Login">login</a>
                         </li>
